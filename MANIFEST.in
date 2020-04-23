@@ -1,0 +1,4 @@
+include README.md
+recursive-include octoprint_xbox/templates *
+recursive-include octoprint_xbox/translations *
+recursive-include octoprint_xbox/static *
