@@ -113,59 +113,56 @@ class Joystick():
         return self.connectStatus
 
     # Left stick X axis value scaled between -1.0 (left) and 1.0 (right) with deadzone tolerance correction
-    def leftX(self,deadzone=75):
+    def leftX(self,deadzone=50):
         self.refresh()
-        raw = int(self.reading[3:9])
+        raw = int(self.reading[3:6])
         return self.axisScale(raw,deadzone)
 
     # Left stick Y axis value scaled between -1.0 (down) and 1.0 (up)
-    def leftY(self,deadzone=75):
+    def leftY(self,deadzone=50):
         self.refresh()
-        raw = int(self.reading[13:19])
+        raw = int(self.reading[11:13])
         return self.axisScale(raw,deadzone)
 
     # Right stick X axis value scaled between -1.0 (left) and 1.0 (right)
-    def rightX(self,deadzone=75):
+    def rightX(self,deadzone=50):
         self.refresh()
-        raw = int(self.reading[24:30])
+        raw = int(self.reading[18:21])
         return self.axisScale(raw,deadzone)
 
     # Right stick Y axis value scaled between -1.0 (down) and 1.0 (up)
-    def rightY(self,deadzone=75):
+    def rightY(self,deadzone=50):
         self.refresh()
-        raw = int(self.reading[34:40])
+        raw = int(self.reading[25:28])
         return self.axisScale(raw,deadzone)
 
-    # Scale raw (-255 to +255) axis with deadzone correcion
+    # Scale raw (0 to 255) axis with deadzone correcion
     # Deadzone is +/- range of values to consider to be center stick (ie. 0.0)
     def axisScale(self,raw,deadzone):
-        if abs(raw) < deadzone:
+        if raw < 127 + deadzone and raw > 127 - deadzone:
             return 0.0
-        else:
-            if raw < 0:
-                return (raw + deadzone) / (255.0 - deadzone)
-            else:
-                return (raw - deadzone) / (255.0 - deadzone)
+        else:            
+            return raw / 127.0 - 1
 
     # Dpad Up status - returns 1 (pressed) or 0 (not pressed)
     def dpadUp(self):
         self.refresh()
-        return int(self.reading[45:46])
+        return int(self.reading[33:36])
         
     # Dpad Down status - returns 1 (pressed) or 0 (not pressed)
     def dpadDown(self):
         self.refresh()
-        return int(self.reading[50:51])
+        return int(self.reading[40:43])
         
     # Dpad Left status - returns 1 (pressed) or 0 (not pressed)
     def dpadLeft(self):
         self.refresh()
-        return int(self.reading[55:56])
+        return int(self.reading[47:50])
         
     # Dpad Right status - returns 1 (pressed) or 0 (not pressed)
     def dpadRight(self):
         self.refresh()
-        return int(self.reading[60:61])
+        return int(self.reading[54:57])
         
     # Back button status - returns 1 (pressed) or 0 (not pressed)
     def Back(self):
@@ -235,14 +232,14 @@ class Joystick():
     # Returns tuple containing X and Y axis values for Left stick scaled between -1.0 to 1.0
     # Usage:
     #     x,y = joy.leftStick()
-    def leftStick(self,deadzone=75):
+    def leftStick(self,deadzone=50):
         self.refresh()
         return (self.leftX(deadzone),self.leftY(deadzone))
 
     # Returns tuple containing X and Y axis values for Right stick scaled between -1.0 to 1.0
     # Usage:
     #     x,y = joy.rightStick() 
-    def rightStick(self,deadzone=75):
+    def rightStick(self,deadzone=50):
         self.refresh()
         return (self.rightX(deadzone),self.rightY(deadzone))
 
