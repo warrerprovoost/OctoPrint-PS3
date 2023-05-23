@@ -113,39 +113,39 @@ class Joystick():
         return self.connectStatus
 
     # Left stick X axis value scaled between -1.0 (left) and 1.0 (right) with deadzone tolerance correction
-    def leftX(self,deadzone=4000):
+    def leftX(self,deadzone=75):
         self.refresh()
         raw = int(self.reading[3:9])
         return self.axisScale(raw,deadzone)
 
     # Left stick Y axis value scaled between -1.0 (down) and 1.0 (up)
-    def leftY(self,deadzone=4000):
+    def leftY(self,deadzone=75):
         self.refresh()
         raw = int(self.reading[13:19])
         return self.axisScale(raw,deadzone)
 
     # Right stick X axis value scaled between -1.0 (left) and 1.0 (right)
-    def rightX(self,deadzone=4000):
+    def rightX(self,deadzone=75):
         self.refresh()
         raw = int(self.reading[24:30])
         return self.axisScale(raw,deadzone)
 
     # Right stick Y axis value scaled between -1.0 (down) and 1.0 (up)
-    def rightY(self,deadzone=4000):
+    def rightY(self,deadzone=75):
         self.refresh()
         raw = int(self.reading[34:40])
         return self.axisScale(raw,deadzone)
 
-    # Scale raw (-32768 to +32767) axis with deadzone correcion
+    # Scale raw (-255 to +255) axis with deadzone correcion
     # Deadzone is +/- range of values to consider to be center stick (ie. 0.0)
     def axisScale(self,raw,deadzone):
         if abs(raw) < deadzone:
             return 0.0
         else:
             if raw < 0:
-                return (raw + deadzone) / (32768.0 - deadzone)
+                return (raw + deadzone) / (255.0 - deadzone)
             else:
-                return (raw - deadzone) / (32767.0 - deadzone)
+                return (raw - deadzone) / (255.0 - deadzone)
 
     # Dpad Up status - returns 1 (pressed) or 0 (not pressed)
     def dpadUp(self):
@@ -235,14 +235,14 @@ class Joystick():
     # Returns tuple containing X and Y axis values for Left stick scaled between -1.0 to 1.0
     # Usage:
     #     x,y = joy.leftStick()
-    def leftStick(self,deadzone=4000):
+    def leftStick(self,deadzone=75):
         self.refresh()
         return (self.leftX(deadzone),self.leftY(deadzone))
 
     # Returns tuple containing X and Y axis values for Right stick scaled between -1.0 to 1.0
     # Usage:
     #     x,y = joy.rightStick() 
-    def rightStick(self,deadzone=4000):
+    def rightStick(self,deadzone=75):
         self.refresh()
         return (self.rightX(deadzone),self.rightY(deadzone))
 
