@@ -18,8 +18,8 @@ class XboxPlugin(octoprint.plugin.SettingsPlugin,
         self.bConnected =                   False
         self.bStarted =                     False
         self.joy =                          None
-        self.maxX =                         126.0
-        self.maxY =                         126.0
+        self.maxX =                         255.0
+        self.maxY =                         255.0
         self.midX =                         self.maxX / 2
         self.midY =                         self.maxY / 2
         self.iota =                         0.25
