@@ -2,16 +2,16 @@
 layout: plugin
 
 id: xbox
-title: OctoPrint-Xbox
-description: A plugin to control the 3D printer with an Xbox 360 wireless controller.
+title: OctoPrint-PS3
+description: A plugin to control the 3D printer with a playstation controller.
 author: OutsourcedGuru
 license: AGPLv3
 
 # TODO
 date: today's date in format YYYY-MM-DD, e.g. 2015-04-21
 
-homepage: https://github.com/OutsourcedGuru/OctoPrint-Xbox
-source: https://github.com/OutsourcedGuru/OctoPrint-Xbox
+homepage: https://github.com/warrerprovoost/OctoPrint-PS3
+source: https://github.com/warrerprovoost/OctoPrint-PS3
 archive: https://github.com/OutsourcedGuru/OctoPrint-Xbox/archive/master.zip
 
 # TODO
